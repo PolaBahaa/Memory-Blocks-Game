@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- This makes sure the game looks good on mobile phones -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Memory Blocks Game</title>
+
+    <!-- Link to our CSS file for styling -->
+    <link rel="stylesheet" href="./style.css" />
+
+    <!-- Link to FontAwesome to get the brand icons for the cards -->
+    <link rel="stylesheet" href="./fontawesome/css/all.min.css" />
+
+    <!-- Link to Google Fonts to use the 'Outfit' font for our text -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;900&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- 1. START SCREEN / GAME OVER SCREEN OVERLAY -->
+    <!-- This covers the whole screen before the game starts or when it ends -->
+    <div class="overlay-screen">
+      <div class="game-over-text">Game Over</div>
+
+      <!-- Buttons to choose the difficulty level -->
+      <div class="difficulty-buttons">
+        <button class="level-button" data-cards="20" data-time="120">Easy</button>
+        <!-- The Normal button has the 'active' class by default -->
+        <button class="level-button active" data-cards="40" data-time="240">Normal</button>
+        <button class="level-button" data-cards="60" data-time="300">Hard</button>
+      </div>
+
+      <!-- The main button to start the game -->
+      <button class="start-game-button">Start Game</button>
+    </div>
+
+    <!-- 2. GAME INFORMATION (Top Bar) -->
+    <!-- Shows the player's name, time left, and wrong attempts -->
+    <div class="game-info-bar">
+      <div class="player-name">Hello: <span>Unknown</span></div>
+      <div class="time-left-display">0:00</div>
+      <div class="wrong-attempts">Wrong Tries: <span>0</span></div>
+    </div>
+
+    <!-- 3. THE GAME BOARD -->
+    <!-- This empty container will be filled with cards using JavaScript -->
+    <div class="game-board"></div>
+
+    <!-- 4. THE LEADERBOARD -->
+    <!-- Shows the top scores from previous games -->
+    <div class="leaderboard-section">
+      <table class="score-table">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Name</th>
+            <th>Time Taken</th>
+            <th>Wrong Tries</th>
+          </tr>
+        </thead>
+        <!-- The rows inside this body will be created by JavaScript -->
+        <tbody id="leaderboard-data"></tbody>
+      </table>
+    </div>
+
+    <!-- 5. SOUND EFFECTS -->
+    <!-- These audio files are hidden but can be played by JavaScript -->
+    <audio id="success-sound" src="./success.mp3" preload="auto"></audio>
+    <audio id="fail-sound" src="./fail.mp3" preload="auto"></audio>
+    <audio id="background-music" src="./music.mp3" preload="auto"></audio>
+
+    <!-- Link to our JavaScript file containing the game logic -->
+    <script src="./main.js"></script>
+  </body>
+</html>

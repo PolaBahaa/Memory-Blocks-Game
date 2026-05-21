@@ -1,0 +1,11 @@
+{
+  "appId": "com.vision.memoryblocks",
+  "appName": "Memory Blocks",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "plugins": {
+    "Fullscreen": {
+      "activateOnLoad": true
+    }
+  }
+}
