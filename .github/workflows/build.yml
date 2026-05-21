@@ -11,22 +11,29 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Set up Java JDK
         uses: actions/setup-java@v4
         with:
-          distribution: "zulu"
-          java-version: "17"
+          distribution: 'zulu'
+          java-version: '17'
 
-      - name: Install Dependencies and Sync
+      - name: Initialize Package If Missing
         run: |
-          npm install
+          if [ ! -f package.json ]; then
+            npm init -y
+            npm install @capacitor/core @capacitor/cli @capacitor/android
+          fi
+
+      - name: Sync Web Assets to Android
+        run: |
           npx cap sync android
 
       - name: Build APK with Gradle
         run: |
           cd android
+          chmod +x gradlew
           ./gradlew assembleDebug
 
       - name: Upload Finished APK
