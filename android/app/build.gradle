@@ -2,12 +2,12 @@ apply plugin: 'com.android.application'
 
 android {
     namespace = "com.vision.memoryblocks"
-    compileSdk = 34
+    compileSdk = 36 // Updated to match latest 2026 dependency rules
     
     defaultConfig {
         applicationId "com.vision.memoryblocks"
         minSdkVersion 22
-        targetSdkVersion 34
+        targetSdkVersion 34 // Keep at 34 for standard stable runtime behaviors
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
