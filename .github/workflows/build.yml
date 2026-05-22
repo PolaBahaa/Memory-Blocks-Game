@@ -1,6 +1,9 @@
 name: Build Android APK
 on: [push, workflow_dispatch]
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -11,27 +14,27 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
 
-      - name: Set up Java JDK 17
+      - name: Set up Java JDK
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '17'
 
-      - name: Clean Local System Files
+      - name: Clean Environment
         run: |
           rm -rf node_modules package-lock.json
 
-      - name: Install Project Dependencies
+      - name: Install Packages
         run: |
           npm install @capacitor/core @capacitor/cli @capacitor/android
 
-      - name: Sync Web Assets to Android Folder
+      - name: Sync Game Assets
         run: |
           npx cap sync android
 
-      - name: Build Android Package with Gradle
+      - name: Compile Application Bundle
         run: |
           cd android
           chmod +x gradlew
