@@ -20,7 +20,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: '21' # Upgraded from 17 to match modern capacitor dependencies
+          java-version: '21'
 
       - name: Clean Environment
         run: |
@@ -39,3 +39,10 @@ jobs:
           cd android
           chmod +x gradlew
           ./gradlew assembleDebug --no-daemon
+
+      - name: Upload Finished APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Fullscreen-Game-APK
+          # This tells GitHub to look for ANY .apk file inside the build folder structure
+          path: android/app/build/outputs/apk/debug/*.apk
