@@ -1,9 +1,6 @@
 name: Build Android APK
 on: [push, workflow_dispatch]
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -14,7 +11,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version: 20
 
       - name: Set up Java JDK
         uses: actions/setup-java@v4
@@ -22,31 +19,22 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
-      - name: Install Bubblewrap CLI
-        run: npm install -g @bubblewrap/cli
-
-      - name: Generate Web Manifest and Build APK
+      - name: Install Project Dependencies
         run: |
-          cat <<EOF > www/manifest.json
-          {
-            "name": "Memory Blocks Game",
-            "short_name": "MemoryBlocks",
-            "start_url": "index.html",
-            "display": "fullscreen",
-            "background_color": "#0f172a",
-            "theme_color": "#0f172a",
-            "orientation": "any"
-          }
-          EOF
-          
-          sed -i '/<\/head>/i <link rel="manifest" href="manifest.json">' www/index.html
-          
-          bubblewrap init --manifest=www/manifest.json --meta-out=android-metadata --directory=www
-          
-          bubblewrap build --password="password123" --keypassword="password123"
+          npm ci
+
+      - name: Sync Web Assets to Android Folder
+        run: |
+          npx cap sync android
+
+      - name: Build Android Package with Gradle
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
 
       - name: Upload Finished APK
         uses: actions/upload-artifact@v4
         with:
           name: Fullscreen-Game-APK
-          path: app-release-signed.apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
