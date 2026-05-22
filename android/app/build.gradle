@@ -2,12 +2,12 @@ apply plugin: 'com.android.application'
 
 android {
     namespace = "com.vision.memoryblocks"
-    compileSdk = 36 // Updated to match latest 2026 dependency rules
+    compileSdk = 36
     
     defaultConfig {
         applicationId "com.vision.memoryblocks"
-        minSdkVersion 22
-        targetSdkVersion 34 // Keep at 34 for standard stable runtime behaviors
+        minSdkVersion 24 // Changed from 22 to 24 to match the fullscreen plugin requirements
+        targetSdkVersion 34
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
